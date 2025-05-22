@@ -1,33 +1,23 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("dataForm");
+document.addEventListener("DOMContentLoaded", () => {
+  const dataForm = document.getElementById("dataForm");
   const successAlert = document.getElementById("successAlert");
   const errorAlert = document.getElementById("errorAlert");
   const errorMessage = document.getElementById("errorMessage");
   const closeAlert = document.getElementById("closeAlert");
   const closeErrorAlert = document.getElementById("closeErrorAlert");
-  const downloadLink = document.getElementById("downloadLink");
   const downloadExcel = document.getElementById("downloadExcel");
+  const downloadLink = document.getElementById("downloadLink");
 
   // Check if Excel file exists and update download button
   fetch("/check-file")
     .then((response) => response.json())
     .then((data) => {
       if (data.exists) {
-        downloadExcel.href = "/download/data.xlsx";
+        downloadExcel.href = "/download/data_sensus.xlsx";
         downloadExcel.classList.remove("hidden");
       }
     })
     .catch((error) => console.error("Error checking file:", error));
-
-  // Close success alert
-  closeAlert.addEventListener("click", function () {
-    successAlert.classList.add("hidden");
-  });
-
-  // Close error alert
-  closeErrorAlert.addEventListener("click", function () {
-    errorAlert.classList.add("hidden");
-  });
 
   // Validasi input RT dan RW hanya angka
   document.getElementById("rt").addEventListener("input", function (e) {
@@ -38,7 +28,35 @@ document.addEventListener("DOMContentLoaded", function () {
     this.value = this.value.replace(/[^0-9]/g, "");
   });
 
-  form.addEventListener("submit", function (e) {
+  // Validasi jumlah anggota 15+ tidak lebih dari jumlah anggota total
+  document
+    .getElementById("jumlah_anggota_15plus")
+    .addEventListener("input", function (e) {
+      const totalAnggota =
+        Number.parseInt(document.getElementById("jumlah_anggota").value) || 0;
+      const anggota15Plus = Number.parseInt(this.value) || 0;
+
+      if (anggota15Plus > totalAnggota) {
+        this.value = totalAnggota;
+      }
+    });
+
+  document
+    .getElementById("jumlah_anggota")
+    .addEventListener("input", function (e) {
+      const totalAnggota = Number.parseInt(this.value) || 0;
+      const anggota15Plus =
+        Number.parseInt(
+          document.getElementById("jumlah_anggota_15plus").value
+        ) || 0;
+
+      if (anggota15Plus > totalAnggota) {
+        document.getElementById("jumlah_anggota_15plus").value = totalAnggota;
+      }
+    });
+
+  // Form validation
+  dataForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     // Reset error messages
@@ -46,49 +64,86 @@ document.addEventListener("DOMContentLoaded", function () {
       .querySelectorAll(".text-red-500")
       .forEach((el) => el.classList.add("hidden"));
 
-    // Get form values
-    const rt = document.getElementById("rt").value.trim();
-    const rw = document.getElementById("rw").value.trim();
-    const dusun = document.getElementById("dusun").value.trim();
-    const namaKepala = document.getElementById("nama_kepala").value.trim();
-    const alamat = document.getElementById("alamat").value.trim();
-
-    // Validate form
     let isValid = true;
 
-    if (!rt) {
-      document.getElementById("rt_error").classList.remove("hidden");
-      isValid = false;
-    }
+    // Validate required fields
+    const requiredFields = [
+      "rt",
+      "rw",
+      "dusun",
+      "nama_kepala",
+      "alamat",
+      "jumlah_anggota",
+      "jumlah_anggota_15plus",
+    ];
 
-    if (!rw) {
-      document.getElementById("rw_error").classList.remove("hidden");
-      isValid = false;
-    }
+    requiredFields.forEach((field) => {
+      const input = document.getElementById(field);
+      const error = document.getElementById(`${field}_error`);
 
-    if (!dusun) {
-      document.getElementById("dusun_error").classList.remove("hidden");
-      isValid = false;
-    }
+      if (!input.value.trim()) {
+        error.classList.remove("hidden");
+        isValid = false;
 
-    if (!namaKepala) {
-      document.getElementById("nama_kepala_error").classList.remove("hidden");
-      isValid = false;
-    }
+        // Add shake animation
+        input.classList.add("border-red-500");
+        input.animate(
+          [
+            { transform: "translateX(0)" },
+            { transform: "translateX(-5px)" },
+            { transform: "translateX(5px)" },
+            { transform: "translateX(-5px)" },
+            { transform: "translateX(5px)" },
+            { transform: "translateX(0)" },
+          ],
+          {
+            duration: 500,
+            easing: "ease-in-out",
+          }
+        );
 
-    if (!alamat) {
-      document.getElementById("alamat_error").classList.remove("hidden");
+        // Remove red border after 2 seconds
+        setTimeout(() => {
+          input.classList.remove("border-red-500");
+        }, 2000);
+      }
+    });
+
+    // Additional validation for jumlah_anggota_15plus
+    const totalMembers =
+      Number.parseInt(document.getElementById("jumlah_anggota").value) || 0;
+    const adultMembers =
+      Number.parseInt(document.getElementById("jumlah_anggota_15plus").value) ||
+      0;
+
+    if (adultMembers > totalMembers) {
+      document.getElementById("jumlah_anggota_15plus_error").textContent =
+        "Tidak boleh lebih dari jumlah anggota keluarga";
+      document
+        .getElementById("jumlah_anggota_15plus_error")
+        .classList.remove("hidden");
       isValid = false;
     }
 
     if (isValid) {
       // Create form data
       const formData = new FormData();
-      formData.append("rt", rt);
-      formData.append("rw", rw);
-      formData.append("dusun", dusun);
-      formData.append("nama_kepala", namaKepala);
-      formData.append("alamat", alamat);
+
+      requiredFields.forEach((field) => {
+        formData.append(field, document.getElementById(field).value.trim());
+      });
+
+      // Show loading state
+      const submitButton = dataForm.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
+      submitButton.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Menyimpan...
+      `;
+      submitButton.disabled = true;
 
       // Send data to server
       fetch("/submit", {
@@ -97,7 +152,17 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => response.json())
         .then((data) => {
+          // Reset button state
+          submitButton.innerHTML = originalButtonText;
+          submitButton.disabled = false;
+
           if (data.success) {
+            // Jika perlu redirect ke halaman lanjutan
+            if (data.redirect) {
+              window.location.href = data.redirect_url;
+              return;
+            }
+
             // Show success message
             successAlert.classList.remove("hidden");
             errorAlert.classList.add("hidden");
@@ -110,7 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Reset form
-            form.reset();
+            dataForm.reset();
+
+            // Scroll to success message
+            successAlert.scrollIntoView({ behavior: "smooth" });
 
             // Hide success message after 10 seconds
             setTimeout(() => {
@@ -121,14 +189,55 @@ document.addEventListener("DOMContentLoaded", function () {
             errorMessage.textContent = data.message || "Terjadi kesalahan.";
             errorAlert.classList.remove("hidden");
             successAlert.classList.add("hidden");
+
+            // Scroll to error message
+            errorAlert.scrollIntoView({ behavior: "smooth" });
           }
         })
         .catch((error) => {
+          // Reset button state
+          submitButton.innerHTML = originalButtonText;
+          submitButton.disabled = false;
+
           console.error("Error:", error);
           errorMessage.textContent = "Terjadi kesalahan pada server.";
           errorAlert.classList.remove("hidden");
           successAlert.classList.add("hidden");
+
+          // Scroll to error message
+          errorAlert.scrollIntoView({ behavior: "smooth" });
         });
+    } else {
+      // Show error message
+      errorAlert.classList.remove("hidden");
+      errorMessage.textContent = "Mohon lengkapi semua field yang wajib diisi.";
+
+      // Scroll to first error
+      const firstError = document.querySelector(".text-red-500:not(.hidden)");
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     }
+  });
+
+  // Input event listeners to hide error messages when typing
+  const allInputs = document.querySelectorAll("input, textarea");
+  allInputs.forEach((input) => {
+    input.addEventListener("input", function () {
+      const errorId = `${this.id}_error`;
+      const errorElement = document.getElementById(errorId);
+      if (errorElement) {
+        errorElement.classList.add("hidden");
+      }
+    });
+  });
+
+  // Close alerts
+  closeAlert.addEventListener("click", () => {
+    successAlert.classList.add("hidden");
+  });
+
+  closeErrorAlert.addEventListener("click", () => {
+    errorAlert.classList.add("hidden");
   });
 });

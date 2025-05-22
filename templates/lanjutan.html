@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <title>Form Input Data Individu</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#f0f9ff",
+                100: "#e0f2fe",
+                200: "#bae6fd",
+                300: "#7dd3fc",
+                400: "#38bdf8",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+                800: "#075985",
+                900: "#0c4a6e",
+                950: "#082f49",
+              },
+            },
+            animation: {
+              "fade-in": "fadeIn 0.5s ease-in-out",
+              "slide-up": "slideUp 0.5s ease-out",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { transform: "translateY(20px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-primary-50 min-h-screen py-8 px-4 flex items-center justify-center"
+  >
+    <div class="container mx-auto max-w-md">
+      <div class="form-card bg-white">
+        <div class="form-header">
+          <h1 class="text-2xl font-bold text-center">
+            Form Input Data Individu
+          </h1>
+          <p class="text-center text-primary-100 mt-1">
+            Anggota Keluarga Usia 15+ Tahun
+          </p>
+        </div>
+
+        <div class="p-6">
+          <div class="info-card p-4 mb-6">
+            <div class="flex items-start">
+              <div class="flex-shrink-0">
+                <svg
+                  class="h-5 w-5 text-primary-600"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <p class="text-sm font-medium text-primary-800">
+                  Keluarga:
+                  <span class="font-bold">{{ keluarga_data.nama_kepala }}</span>
+                </p>
+                <p class="text-sm text-primary-700 mt-1">
+                  RT {{ keluarga_data.rt }}/RW {{ keluarga_data.rw }} Dusun {{
+                  keluarga_data.dusun }}
+                </p>
+                <div class="mt-2 flex items-center">
+                  <span
+                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800"
+                  >
+                    Tersisa
+                    <span id="remaining" class="font-bold mx-1"
+                      >{{ keluarga_data.jumlah_anggota_15plus }}</span
+                    >
+                    anggota
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="dataForm" class="space-y-6">
+            <!-- Nama Individu -->
+            <div>
+              <label
+                for="nama"
+                class="section-title block text-sm font-medium text-gray-700"
+                >Nama Lengkap</label
+              >
+              <input
+                type="text"
+                id="nama"
+                name="nama"
+                placeholder="Masukkan nama lengkap"
+                class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300"
+              />
+              <p id="nama_error" class="text-red-500 text-xs mt-1 hidden">
+                Wajib diisi
+              </p>
+            </div>
+
+            <!-- 5.1 Hubungan Dengan Kepala Keluarga -->
+            <div>
+              <label
+                class="section-title block text-sm font-medium text-gray-700"
+                >Hubungan Dengan Kepala Keluarga</label
+              >
+              <div class="radio-container mt-2">
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="hubungan_1"
+                    name="hubungan"
+                    value="Suami/Istri"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="hubungan_1" class="ml-2 text-sm text-gray-700"
+                    >1. Suami/Istri</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="hubungan_2"
+                    name="hubungan"
+                    value="Anak"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="hubungan_2" class="ml-2 text-sm text-gray-700"
+                    >2. Anak</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="hubungan_3"
+                    name="hubungan"
+                    value="Menantu"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="hubungan_3" class="ml-2 text-sm text-gray-700"
+                    >3. Menantu</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="hubungan_4"
+                    name="hubungan"
+                    value="Lainnya"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="hubungan_4" class="ml-2 text-sm text-gray-700"
+                    >4. Lainnya</label
+                  >
+                </div>
+              </div>
+              <p id="hubungan_error" class="text-red-500 text-xs mt-1 hidden">
+                Wajib dipilih
+              </p>
+            </div>
+
+            <!-- 5.2 Jenis Kelamin -->
+            <div>
+              <label
+                class="section-title block text-sm font-medium text-gray-700"
+                >Jenis Kelamin</label
+              >
+              <div class="radio-container mt-2">
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="jenis_kelamin_1"
+                    name="jenis_kelamin"
+                    value="Laki-Laki"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label
+                    for="jenis_kelamin_1"
+                    class="ml-2 text-sm text-gray-700"
+                    >1. Laki-Laki</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="jenis_kelamin_2"
+                    name="jenis_kelamin"
+                    value="Perempuan"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label
+                    for="jenis_kelamin_2"
+                    class="ml-2 text-sm text-gray-700"
+                    >2. Perempuan</label
+                  >
+                </div>
+              </div>
+              <p
+                id="jenis_kelamin_error"
+                class="text-red-500 text-xs mt-1 hidden"
+              >
+                Wajib dipilih
+              </p>
+            </div>
+
+            <!-- 5.3 Umur -->
+            <div>
+              <label
+                for="umur"
+                class="section-title block text-sm font-medium text-gray-700"
+                >Umur</label
+              >
+              <input
+                type="number"
+                id="umur"
+                name="umur"
+                min="15"
+                placeholder="Masukkan umur"
+                class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300"
+              />
+              <p id="umur_error" class="text-red-500 text-xs mt-1 hidden">
+                Wajib diisi, minimal 15 tahun
+              </p>
+            </div>
+
+            <!-- 5.4 Status Perkawinan -->
+            <div>
+              <label
+                class="section-title block text-sm font-medium text-gray-700"
+                >Status Perkawinan</label
+              >
+              <div class="radio-container mt-2">
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="status_1"
+                    name="status_perkawinan"
+                    value="Belum Kawin"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="status_1" class="ml-2 text-sm text-gray-700"
+                    >1. Belum Kawin</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="status_2"
+                    name="status_perkawinan"
+                    value="Kawin"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="status_2" class="ml-2 text-sm text-gray-700"
+                    >2. Kawin</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="status_3"
+                    name="status_perkawinan"
+                    value="Cerai Hidup"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="status_3" class="ml-2 text-sm text-gray-700"
+                    >3. Cerai Hidup</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="status_4"
+                    name="status_perkawinan"
+                    value="Cerai Mati"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="status_4" class="ml-2 text-sm text-gray-700"
+                    >4. Cerai Mati</label
+                  >
+                </div>
+              </div>
+              <p
+                id="status_perkawinan_error"
+                class="text-red-500 text-xs mt-1 hidden"
+              >
+                Wajib dipilih
+              </p>
+            </div>
+
+            <!-- 5.5 Pendidikan Terakhir -->
+            <div>
+              <label
+                class="section-title block text-sm font-medium text-gray-700"
+                >Pendidikan Terakhir</label
+              >
+              <div class="radio-container mt-2">
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="pendidikan_1"
+                    name="pendidikan"
+                    value="Tidak/Belum Tamat SD"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="pendidikan_1" class="ml-2 text-sm text-gray-700"
+                    >1. Tidak/Belum Tamat SD</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="pendidikan_2"
+                    name="pendidikan"
+                    value="SD/MI/SDLB/PAKET A"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="pendidikan_2" class="ml-2 text-sm text-gray-700"
+                    >2. SD/MI/SDLB/PAKET A</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="pendidikan_3"
+                    name="pendidikan"
+                    value="SMP/MTS/SMPLB/PAKET B"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="pendidikan_3" class="ml-2 text-sm text-gray-700"
+                    >3. SMP/MTS/SMPLB/PAKET B</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="pendidikan_4"
+                    name="pendidikan"
+                    value="SMA/MA/SMK/MAK/SMALB/PAKET C"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="pendidikan_4" class="ml-2 text-sm text-gray-700"
+                    >4. SMA/MA/SMK/MAK/SMALB/PAKET C</label
+                  >
+                </div>
+              </div>
+              <p id="pendidikan_error" class="text-red-500 text-xs mt-1 hidden">
+                Wajib dipilih
+              </p>
+            </div>
+
+            <!-- 5.6 Kegiatan Sehari-hari -->
+            <div>
+              <label
+                class="section-title block text-sm font-medium text-gray-700"
+                >Kegiatan Sehari-hari</label
+              >
+              <div class="radio-container mt-2">
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="kegiatan_1"
+                    name="kegiatan"
+                    value="Bekerja"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="kegiatan_1" class="ml-2 text-sm text-gray-700"
+                    >1. Bekerja</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="kegiatan_2"
+                    name="kegiatan"
+                    value="Sekolah"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="kegiatan_2" class="ml-2 text-sm text-gray-700"
+                    >2. Sekolah</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="kegiatan_3"
+                    name="kegiatan"
+                    value="Mengurus Rumah Tangga"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="kegiatan_3" class="ml-2 text-sm text-gray-700"
+                    >3. Mengurus Rumah Tangga</label
+                  >
+                </div>
+                <div class="radio-item flex items-center">
+                  <input
+                    type="radio"
+                    id="kegiatan_4"
+                    name="kegiatan"
+                    value="Melakukan Kegiatan Lainnya"
+                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                  />
+                  <label for="kegiatan_4" class="ml-2 text-sm text-gray-700"
+                    >4. Melakukan Kegiatan Lainnya</label
+                  >
+                </div>
+              </div>
+              <p id="kegiatan_error" class="text-red-500 text-xs mt-1 hidden">
+                Wajib dipilih
+              </p>
+            </div>
+
+            <div class="pt-4 space-y-3">
+              <button
+                type="submit"
+                class="submit-btn w-full text-white font-medium py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                Simpan & Lanjutkan
+              </button>
+
+              <a
+                href="/"
+                class="back-btn w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg transition duration-300 text-center block flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+                Kembali ke Halaman Utama
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Alert Success -->
+      <div
+        id="successAlert"
+        class="alert hidden mt-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-md"
+        role="alert"
+      >
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-green-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="font-bold">Berhasil!</p>
+            <p id="successMessage" class="text-sm">
+              Data telah berhasil disimpan.
+            </p>
+          </div>
+          <button
+            id="closeAlert"
+            class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg p-1.5 hover:bg-green-200 inline-flex h-8 w-8"
+          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Alert Error -->
+      <div
+        id="errorAlert"
+        class="alert hidden mt-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg shadow-md"
+        role="alert"
+      >
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-red-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="font-bold">Error!</p>
+            <p id="errorMessage" class="text-sm">Terjadi kesalahan.</p>
+          </div>
+          <button
+            id="closeErrorAlert"
+            class="ml-auto -mx-1.5 -my-1.5 bg-red-100 text-red-500 rounded-lg p-1.5 hover:bg-red-200 inline-flex h-8 w-8"
+          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/lanjutan.js') }}"></script>
+  </body>
+</html>
