@@ -5,75 +5,69 @@ document.addEventListener("DOMContentLoaded", function () {
   const errorMessage = document.getElementById("errorMessage");
   const closeAlert = document.getElementById("closeAlert");
   const closeErrorAlert = document.getElementById("closeErrorAlert");
-  const showFileLocationBtn = document.getElementById("showFileLocation");
-  const fileLocationModal = document.getElementById("fileLocationModal");
-  const fileLocationText = document.getElementById("fileLocationText");
-  const closeModal = document.getElementById("closeModal");
-  const fileLocationSuccess = document.getElementById("fileLocationSuccess");
   const downloadLink = document.getElementById("downloadLink");
   const downloadExcel = document.getElementById("downloadExcel");
 
-  fetch("/file-location")
+  // Check if Excel file exists and update download button
+  fetch("/check-file")
     .then((response) => response.json())
     .then((data) => {
-      fetch("/download/data.xlsx", { method: "HEAD" })
-        .then((response) => {
-          if (response.ok) {
-            downloadExcel.href = "/download/data.xlsx";
-            downloadExcel.classList.remove("hidden");
-          }
-        })
-        .catch((error) => console.error("Error checking file:", error));
+      if (data.exists) {
+        downloadExcel.href = "/download/data.xlsx";
+        downloadExcel.classList.remove("hidden");
+      }
     })
-    .catch((error) => console.error("Error:", error));
+    .catch((error) => console.error("Error checking file:", error));
 
+  // Close success alert
   closeAlert.addEventListener("click", function () {
     successAlert.classList.add("hidden");
   });
 
+  // Close error alert
   closeErrorAlert.addEventListener("click", function () {
     errorAlert.classList.add("hidden");
   });
 
-  showFileLocationBtn.addEventListener("click", function () {
-    fetch("/file-location")
-      .then((response) => response.json())
-      .then((data) => {
-        fileLocationText.textContent = data.file_location;
-        fileLocationModal.classList.remove("hidden");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        errorMessage.textContent = "Gagal mendapatkan lokasi file.";
-        errorAlert.classList.remove("hidden");
-      });
+  // Validasi input RT dan RW hanya angka
+  document.getElementById("rt").addEventListener("input", function (e) {
+    this.value = this.value.replace(/[^0-9]/g, "");
   });
 
-  closeModal.addEventListener("click", function () {
-    fileLocationModal.classList.add("hidden");
-  });
-
-  window.addEventListener("click", function (event) {
-    if (event.target === fileLocationModal) {
-      fileLocationModal.classList.add("hidden");
-    }
+  document.getElementById("rw").addEventListener("input", function (e) {
+    this.value = this.value.replace(/[^0-9]/g, "");
   });
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
+    // Reset error messages
     document
       .querySelectorAll(".text-red-500")
       .forEach((el) => el.classList.add("hidden"));
 
-    const rtRwDusun = document.getElementById("rt_rw_dusun").value.trim();
+    // Get form values
+    const rt = document.getElementById("rt").value.trim();
+    const rw = document.getElementById("rw").value.trim();
+    const dusun = document.getElementById("dusun").value.trim();
     const namaKepala = document.getElementById("nama_kepala").value.trim();
     const alamat = document.getElementById("alamat").value.trim();
 
+    // Validate form
     let isValid = true;
 
-    if (!rtRwDusun) {
-      document.getElementById("rt_rw_dusun_error").classList.remove("hidden");
+    if (!rt) {
+      document.getElementById("rt_error").classList.remove("hidden");
+      isValid = false;
+    }
+
+    if (!rw) {
+      document.getElementById("rw_error").classList.remove("hidden");
+      isValid = false;
+    }
+
+    if (!dusun) {
+      document.getElementById("dusun_error").classList.remove("hidden");
       isValid = false;
     }
 
@@ -88,11 +82,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (isValid) {
+      // Create form data
       const formData = new FormData();
-      formData.append("rt_rw_dusun", rtRwDusun);
+      formData.append("rt", rt);
+      formData.append("rw", rw);
+      formData.append("dusun", dusun);
       formData.append("nama_kepala", namaKepala);
       formData.append("alamat", alamat);
 
+      // Send data to server
       fetch("/submit", {
         method: "POST",
         body: formData,
@@ -100,15 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
-            // Show pesan sukses
+            // Show success message
             successAlert.classList.remove("hidden");
             errorAlert.classList.add("hidden");
-
-            // Show file location
-            if (data.file_location) {
-              fileLocationSuccess.textContent = data.file_location;
-              fileLocationSuccess.classList.remove("hidden");
-            }
 
             // Update download link
             if (data.download_url) {
