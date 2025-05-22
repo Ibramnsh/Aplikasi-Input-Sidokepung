@@ -20,16 +20,14 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     try:
-        # Ambil data dari form
         rt_rw_dusun = request.form.get('rt_rw_dusun')
         nama_kepala = request.form.get('nama_kepala')
         alamat = request.form.get('alamat')
         
-        # Validasi data di server
+        # Validasi data
         if not rt_rw_dusun or not nama_kepala or not alamat:
             return jsonify({'success': False, 'message': 'Semua field harus diisi'}), 400
         
-        # Tambahkan timestamp
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         # Data baru untuk ditambahkan
@@ -41,13 +39,9 @@ def submit():
         }
         
         try:
-            # Cek apakah file Excel sudah ada
             if os.path.exists(EXCEL_FILE):
-                # Pastikan file tidak sedang digunakan
                 try:
-                    # Baca file yang sudah ada
-                    df = pd.read_excel(EXCEL_FILE)
-                    # Tambahkan data baru
+                    df = pd.read_excel(EXCEL_FILE)                
                     df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
                 except PermissionError:
                     return jsonify({
@@ -55,10 +49,8 @@ def submit():
                         'message': 'File Excel sedang digunakan oleh program lain. Tutup file dan coba lagi.'
                     }), 500
             else:
-                # Buat DataFrame baru jika file belum ada
                 df = pd.DataFrame([new_data])
             
-            # Simpan ke Excel
             df.to_excel(EXCEL_FILE, index=False)
             
             # Tampilkan lokasi file untuk debugging
@@ -89,7 +81,7 @@ def download_file(filename):
         directory=STATIC_FOLDER, 
         path=filename,
         as_attachment=True,
-        download_name=f"data_keluarga_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+        download_name=f"data_keluarga_{datetime.now().strftime('%d%m%Y_%H%M%S')}.xlsx"
     )
 
 @app.route('/file-location')
