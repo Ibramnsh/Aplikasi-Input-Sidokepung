@@ -50,7 +50,7 @@
     </script>
   </head>
   <body
-    class="bg-primary-50 min-h-screen py-8 px-4 flex items-center justify-center"
+    class="bg-gradient-to-br from-primary-50 to-primary-100 min-h-screen py-8 px-4 flex items-center justify-center"
   >
     <div class="container mx-auto max-w-md">
       <div class="form-card bg-white">
@@ -127,57 +127,38 @@
             <!-- 5.1 Hubungan Dengan Kepala Keluarga -->
             <div>
               <label
+                for="hubungan"
                 class="section-title block text-sm font-medium text-gray-700"
                 >Hubungan Dengan Kepala Keluarga</label
               >
-              <div class="radio-container mt-2">
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="hubungan_1"
-                    name="hubungan"
-                    value="Suami/Istri"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="hubungan_1" class="ml-2 text-sm text-gray-700"
-                    >1. Suami/Istri</label
+              <div class="relative mt-2">
+                <select
+                  id="hubungan"
+                  name="hubungan"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
+                >
+                  <option value="" disabled selected>Pilih hubungan</option>
+                  <option value="Suami/Istri">1. Suami/Istri</option>
+                  <option value="Anak">2. Anak</option>
+                  <option value="Menantu">3. Menantu</option>
+                  <option value="Lainnya">4. Lainnya</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="hubungan_2"
-                    name="hubungan"
-                    value="Anak"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="hubungan_2" class="ml-2 text-sm text-gray-700"
-                    >2. Anak</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="hubungan_3"
-                    name="hubungan"
-                    value="Menantu"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="hubungan_3" class="ml-2 text-sm text-gray-700"
-                    >3. Menantu</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="hubungan_4"
-                    name="hubungan"
-                    value="Lainnya"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="hubungan_4" class="ml-2 text-sm text-gray-700"
-                    >4. Lainnya</label
-                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </div>
               </div>
               <p id="hubungan_error" class="text-red-500 text-xs mt-1 hidden">
@@ -188,37 +169,38 @@
             <!-- 5.2 Jenis Kelamin -->
             <div>
               <label
+                for="jenis_kelamin"
                 class="section-title block text-sm font-medium text-gray-700"
                 >Jenis Kelamin</label
               >
-              <div class="radio-container mt-2">
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="jenis_kelamin_1"
-                    name="jenis_kelamin"
-                    value="Laki-Laki"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label
-                    for="jenis_kelamin_1"
-                    class="ml-2 text-sm text-gray-700"
-                    >1. Laki-Laki</label
+              <div class="relative mt-2">
+                <select
+                  id="jenis_kelamin"
+                  name="jenis_kelamin"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
+                >
+                  <option value="" disabled selected>
+                    Pilih jenis kelamin
+                  </option>
+                  <option value="Laki-Laki">1. Laki-Laki</option>
+                  <option value="Perempuan">2. Perempuan</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="jenis_kelamin_2"
-                    name="jenis_kelamin"
-                    value="Perempuan"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label
-                    for="jenis_kelamin_2"
-                    class="ml-2 text-sm text-gray-700"
-                    >2. Perempuan</label
-                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </div>
               </div>
               <p
@@ -252,57 +234,40 @@
             <!-- 5.4 Status Perkawinan -->
             <div>
               <label
+                for="status_perkawinan"
                 class="section-title block text-sm font-medium text-gray-700"
                 >Status Perkawinan</label
               >
-              <div class="radio-container mt-2">
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="status_1"
-                    name="status_perkawinan"
-                    value="Belum Kawin"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="status_1" class="ml-2 text-sm text-gray-700"
-                    >1. Belum Kawin</label
+              <div class="relative mt-2">
+                <select
+                  id="status_perkawinan"
+                  name="status_perkawinan"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
+                >
+                  <option value="" disabled selected>
+                    Pilih status perkawinan
+                  </option>
+                  <option value="Belum Kawin">1. Belum Kawin</option>
+                  <option value="Kawin">2. Kawin</option>
+                  <option value="Cerai Hidup">3. Cerai Hidup</option>
+                  <option value="Cerai Mati">4. Cerai Mati</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="status_2"
-                    name="status_perkawinan"
-                    value="Kawin"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="status_2" class="ml-2 text-sm text-gray-700"
-                    >2. Kawin</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="status_3"
-                    name="status_perkawinan"
-                    value="Cerai Hidup"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="status_3" class="ml-2 text-sm text-gray-700"
-                    >3. Cerai Hidup</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="status_4"
-                    name="status_perkawinan"
-                    value="Cerai Mati"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="status_4" class="ml-2 text-sm text-gray-700"
-                    >4. Cerai Mati</label
-                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </div>
               </div>
               <p
@@ -316,69 +281,49 @@
             <!-- 5.5 Pendidikan Terakhir -->
             <div>
               <label
+                for="pendidikan"
                 class="section-title block text-sm font-medium text-gray-700"
                 >Pendidikan Terakhir</label
               >
-              <div class="radio-container mt-2">
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="pendidikan_1"
-                    name="pendidikan"
-                    value="Tidak/Belum Tamat SD"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="pendidikan_1" class="ml-2 text-sm text-gray-700"
-                    >1. Tidak/Belum Tamat SD</label
+              <div class="relative mt-2">
+                <select
+                  id="pendidikan"
+                  name="pendidikan"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
+                >
+                  <option value="" disabled selected>
+                    Pilih pendidikan terakhir
+                  </option>
+                  <option value="Tidak/Belum Tamat SD">
+                    1. Tidak/Belum Tamat SD
+                  </option>
+                  <option value="SD/MI/SDLB/PAKET A">
+                    2. SD/MI/SDLB/PAKET A
+                  </option>
+                  <option value="SMP/MTS/SMPLB/PAKET B">
+                    3. SMP/MTS/SMPLB/PAKET B
+                  </option>
+                  <option value="SMA/MA/SMK/MAK/SMALB/PAKET C">
+                    4. SMA/MA/SMK/MAK/SMALB/PAKET C
+                  </option>
+                  <option value="PERGURUAN TINGGI">5. PERGURUAN TINGGI</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="pendidikan_2"
-                    name="pendidikan"
-                    value="SD/MI/SDLB/PAKET A"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="pendidikan_2" class="ml-2 text-sm text-gray-700"
-                    >2. SD/MI/SDLB/PAKET A</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="pendidikan_3"
-                    name="pendidikan"
-                    value="SMP/MTS/SMPLB/PAKET B"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="pendidikan_3" class="ml-2 text-sm text-gray-700"
-                    >3. SMP/MTS/SMPLB/PAKET B</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="pendidikan_4"
-                    name="pendidikan"
-                    value="SMA/MA/SMK/MAK/SMALB/PAKET C"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="pendidikan_4" class="ml-2 text-sm text-gray-700"
-                    >4. SMA/MA/SMK/MAK/SMALB/PAKET C</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="pendidikan_5"
-                    name="pendidikan"
-                    value="PERGURUAN TINGGI"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="pendidikan_5" class="ml-2 text-sm text-gray-700"
-                    >5. PERGURUAN TINGGI</label
-                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </div>
               </div>
               <p id="pendidikan_error" class="text-red-500 text-xs mt-1 hidden">
@@ -389,57 +334,44 @@
             <!-- 5.6 Kegiatan Sehari-hari -->
             <div>
               <label
+                for="kegiatan"
                 class="section-title block text-sm font-medium text-gray-700"
                 >Kegiatan Sehari-hari</label
               >
-              <div class="radio-container mt-2">
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="kegiatan_1"
-                    name="kegiatan"
-                    value="Bekerja"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="kegiatan_1" class="ml-2 text-sm text-gray-700"
-                    >1. Bekerja</label
+              <div class="relative mt-2">
+                <select
+                  id="kegiatan"
+                  name="kegiatan"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
+                >
+                  <option value="" disabled selected>
+                    Pilih kegiatan sehari-hari
+                  </option>
+                  <option value="Bekerja">1. Bekerja</option>
+                  <option value="Sekolah">2. Sekolah</option>
+                  <option value="Mengurus Rumah Tangga">
+                    3. Mengurus Rumah Tangga
+                  </option>
+                  <option value="Melakukan Kegiatan Lainnya">
+                    4. Melakukan Kegiatan Lainnya
+                  </option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="kegiatan_2"
-                    name="kegiatan"
-                    value="Sekolah"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="kegiatan_2" class="ml-2 text-sm text-gray-700"
-                    >2. Sekolah</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="kegiatan_3"
-                    name="kegiatan"
-                    value="Mengurus Rumah Tangga"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="kegiatan_3" class="ml-2 text-sm text-gray-700"
-                    >3. Mengurus Rumah Tangga</label
-                  >
-                </div>
-                <div class="radio-item flex items-center">
-                  <input
-                    type="radio"
-                    id="kegiatan_4"
-                    name="kegiatan"
-                    value="Melakukan Kegiatan Lainnya"
-                    class="h-4 w-4 text-primary-600 focus:ring-primary-500"
-                  />
-                  <label for="kegiatan_4" class="ml-2 text-sm text-gray-700"
-                    >4. Melakukan Kegiatan Lainnya</label
-                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </div>
               </div>
               <p id="kegiatan_error" class="text-red-500 text-xs mt-1 hidden">
@@ -448,206 +380,189 @@
             </div>
 
             <!-- 5.7 Bekerja Untuk Memperoleh Bayaran/Upah/Gaji -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="form-section">
-                <label class="block text-sm font-medium text-gray-700 mb-2"
-                  >5.7 Dalam Seminggu Terakhir, Apakah Bekerja Untuk Memperoleh
-                  Bayaran/Upah/Gaji yang dilakukan paling sedikit satu
-                  jam?</label
+            <div class="bg-primary-50 p-4 rounded-lg border border-primary-200">
+              <label
+                for="bekerja_upah"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >5.7 Dalam Seminggu Terakhir, Apakah Bekerja Untuk Memperoleh
+                Bayaran/Upah/Gaji yang dilakukan paling sedikit satu jam?</label
+              >
+              <div class="relative">
+                <select
+                  id="bekerja_upah"
+                  name="bekerja_upah"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white work-status-select"
                 >
-              </div>
-              <div class="form-options">
-                <div class="space-y-2">
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="bekerja_upah_ya"
-                      name="bekerja_upah"
-                      value="Ya"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                  <option value="" disabled selected>Pilih jawaban</option>
+                  <option value="Ya">Ya</option>
+                  <option value="Tidak">Tidak</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
                     />
-                    <label
-                      for="bekerja_upah_ya"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Ya</label
-                    >
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="bekerja_upah_tidak"
-                      name="bekerja_upah"
-                      value="Tidak"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
-                    />
-                    <label
-                      for="bekerja_upah_tidak"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Tidak</label
-                    >
-                  </div>
+                  </svg>
                 </div>
-                <p
-                  id="bekerja_upah_error"
-                  class="text-red-500 text-xs mt-1 hidden"
-                >
-                  Wajib dipilih
-                </p>
               </div>
+              <p
+                id="bekerja_upah_error"
+                class="text-red-500 text-xs mt-1 hidden"
+              >
+                Wajib dipilih
+              </p>
             </div>
 
             <!-- 5.8 Menjalankan Usaha -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="form-section">
-                <label class="block text-sm font-medium text-gray-700 mb-2"
-                  >5.8 Dalam Seminggu Terakhir, Apakah
-                  <span class="nama-placeholder">NAMA</span> menjalankan usaha,
-                  bertani atau melakukan kegiatan lainnya untuk memperoleh
-                  keuntungan/pendapatan yang dilakukan paling sedikit satu
-                  jam?</label
+            <div class="bg-primary-50 p-4 rounded-lg border border-primary-200">
+              <label
+                for="menjalankan_usaha"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >5.8 Dalam Seminggu Terakhir, Apakah
+                <span class="nama-placeholder">NAMA</span> menjalankan usaha,
+                bertani atau melakukan kegiatan lainnya untuk memperoleh
+                keuntungan/pendapatan yang dilakukan paling sedikit satu
+                jam?</label
+              >
+              <div class="relative">
+                <select
+                  id="menjalankan_usaha"
+                  name="menjalankan_usaha"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white work-status-select"
                 >
-              </div>
-              <div class="form-options">
-                <div class="space-y-2">
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="menjalankan_usaha_ya"
-                      name="menjalankan_usaha"
-                      value="Ya"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                  <option value="" disabled selected>Pilih jawaban</option>
+                  <option value="Ya">Ya</option>
+                  <option value="Tidak">Tidak</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
                     />
-                    <label
-                      for="menjalankan_usaha_ya"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Ya</label
-                    >
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="menjalankan_usaha_tidak"
-                      name="menjalankan_usaha"
-                      value="Tidak"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
-                    />
-                    <label
-                      for="menjalankan_usaha_tidak"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Tidak</label
-                    >
-                  </div>
+                  </svg>
                 </div>
-                <p
-                  id="menjalankan_usaha_error"
-                  class="text-red-500 text-xs mt-1 hidden"
-                >
-                  Wajib dipilih
-                </p>
               </div>
+              <p
+                id="menjalankan_usaha_error"
+                class="text-red-500 text-xs mt-1 hidden"
+              >
+                Wajib dipilih
+              </p>
             </div>
 
             <!-- 5.9 Membantu Kegiatan Usaha -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="form-section">
-                <label class="block text-sm font-medium text-gray-700 mb-2"
-                  >5.9 Dalam Seminggu Terakhir, Apakah
-                  <span class="nama-placeholder">NAMA</span> membantu kegiatan
-                  usaha atau pekerjaan keluarga/kerabat lainnya yang dilakukan
-                  paling sedikit satu jam?</label
+            <div class="bg-primary-50 p-4 rounded-lg border border-primary-200">
+              <label
+                for="membantu_usaha"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >5.9 Dalam Seminggu Terakhir, Apakah
+                <span class="nama-placeholder">NAMA</span> membantu kegiatan
+                usaha atau pekerjaan keluarga/kerabat lainnya yang dilakukan
+                paling sedikit satu jam?</label
+              >
+              <div class="relative">
+                <select
+                  id="membantu_usaha"
+                  name="membantu_usaha"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white work-status-select"
                 >
-              </div>
-              <div class="form-options">
-                <div class="space-y-2">
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="membantu_usaha_ya"
-                      name="membantu_usaha"
-                      value="Ya"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                  <option value="" disabled selected>Pilih jawaban</option>
+                  <option value="Ya">Ya</option>
+                  <option value="Tidak">Tidak</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
                     />
-                    <label
-                      for="membantu_usaha_ya"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Ya</label
-                    >
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="membantu_usaha_tidak"
-                      name="membantu_usaha"
-                      value="Tidak"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
-                    />
-                    <label
-                      for="membantu_usaha_tidak"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Tidak</label
-                    >
-                  </div>
+                  </svg>
                 </div>
-                <p
-                  id="membantu_usaha_error"
-                  class="text-red-500 text-xs mt-1 hidden"
-                >
-                  Wajib dipilih
-                </p>
               </div>
+              <p
+                id="membantu_usaha_error"
+                class="text-red-500 text-xs mt-1 hidden"
+              >
+                Wajib dipilih
+              </p>
             </div>
 
             <!-- 5.10 Memiliki Pekerjaan Tetapi Sedang Tidak Bekerja (hanya muncul jika 5.7, 5.8, 5.9 semua "Tidak") -->
             <div
               id="pertanyaan_5_10"
-              class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden"
+              class="bg-primary-50 p-4 rounded-lg border border-primary-200 hidden"
             >
-              <div class="form-section">
-                <label class="block text-sm font-medium text-gray-700 mb-2"
-                  >5.10 Apakah
-                  <span class="nama-placeholder">NAMA</span> sebenarnya memiliki
-                  pekerjaan/kegiatan usaha, tetapi seminggu terakhir sedang
-                  tidak bekerja/menjalankan usaha tersebut?</label
+              <label
+                for="memiliki_pekerjaan"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >5.10 Apakah
+                <span class="nama-placeholder">NAMA</span> sebenarnya memiliki
+                pekerjaan/kegiatan usaha, tetapi seminggu terakhir sedang tidak
+                bekerja/menjalankan usaha tersebut?</label
+              >
+              <div class="relative">
+                <select
+                  id="memiliki_pekerjaan"
+                  name="memiliki_pekerjaan"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
                 >
-              </div>
-              <div class="form-options">
-                <div class="space-y-2">
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="memiliki_pekerjaan_ya"
-                      name="memiliki_pekerjaan"
-                      value="Ya"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+                  <option value="" disabled selected>Pilih jawaban</option>
+                  <option value="Ya">Ya</option>
+                  <option value="Tidak">Tidak</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
                     />
-                    <label
-                      for="memiliki_pekerjaan_ya"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Ya</label
-                    >
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      id="memiliki_pekerjaan_tidak"
-                      name="memiliki_pekerjaan"
-                      value="Tidak"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <label
-                      for="memiliki_pekerjaan_tidak"
-                      class="ml-2 block text-sm text-gray-700"
-                      >Tidak</label
-                    >
-                  </div>
+                  </svg>
                 </div>
-                <p
-                  id="memiliki_pekerjaan_error"
-                  class="text-red-500 text-xs mt-1 hidden"
-                >
-                  Wajib dipilih
-                </p>
               </div>
+              <p
+                id="memiliki_pekerjaan_error"
+                class="text-red-500 text-xs mt-1 hidden"
+              >
+                Wajib dipilih
+              </p>
             </div>
 
             <div class="pt-4 space-y-3">

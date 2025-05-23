@@ -41,6 +41,24 @@ body {
   transform: translateY(-1px);
 }
 
+.select-input {
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+  transform: translateY(-1px);
+}
+
+.select-input option {
+  padding: 10px;
+  font-size: 14px;
+}
+
 .submit-btn {
   background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
   transition: all 0.3s ease;
@@ -78,66 +96,6 @@ body {
   border-left: 4px solid #0ea5e9;
 }
 
-.radio-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.radio-item {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  transition: all 0.2s ease;
-  flex-direction: row;
-}
-
-.radio-item:hover {
-  background-color: #f0f9ff;
-}
-
-.radio-item input[type="radio"] {
-  appearance: none;
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 2px solid #d1d5db;
-  border-radius: 50%;
-  margin-right: 0.5rem;
-  display: grid;
-  place-content: center;
-  transition: all 0.2s ease;
-}
-
-.radio-item input[type="radio"]::before {
-  content: "";
-  width: 0.65rem;
-  height: 0.65rem;
-  border-radius: 50%;
-  transform: scale(0);
-  transition: transform 0.2s ease-in-out;
-  box-shadow: inset 1rem 1rem #0ea5e9;
-}
-
-.radio-item input[type="radio"]:checked {
-  border-color: #0ea5e9;
-}
-
-.radio-item input[type="radio"]:checked::before {
-  transform: scale(1);
-}
-
-.radio-item input[type="radio"]:focus {
-  outline: 2px solid #bae6fd;
-  outline-offset: 2px;
-}
-
-.radio-item label {
-  cursor: pointer;
-  user-select: none;
-  font-weight: 500;
-}
-
 .section-title {
   position: relative;
   padding-left: 1rem;
@@ -157,6 +115,18 @@ body {
   border-radius: 0.125rem;
 }
 
+/* Custom select styling */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/* Animations */
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -174,6 +144,18 @@ body {
   100% {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+/* Dropdown animation */
+@keyframes dropdownOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
