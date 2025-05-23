@@ -435,6 +435,209 @@
               </p>
             </div>
 
+            <!-- 5.7 Bekerja Untuk Memperoleh Bayaran/Upah/Gaji -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-section">
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >5.7 Dalam Seminggu Terakhir, Apakah Bekerja Untuk Memperoleh
+                  Bayaran/Upah/Gaji yang dilakukan paling sedikit satu
+                  jam?</label
+                >
+              </div>
+              <div class="form-options">
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="bekerja_upah_ya"
+                      name="bekerja_upah"
+                      value="Ya"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                    />
+                    <label
+                      for="bekerja_upah_ya"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Ya</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="bekerja_upah_tidak"
+                      name="bekerja_upah"
+                      value="Tidak"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                    />
+                    <label
+                      for="bekerja_upah_tidak"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Tidak</label
+                    >
+                  </div>
+                </div>
+                <p
+                  id="bekerja_upah_error"
+                  class="text-red-500 text-xs mt-1 hidden"
+                >
+                  Wajib dipilih
+                </p>
+              </div>
+            </div>
+
+            <!-- 5.8 Menjalankan Usaha -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-section">
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >5.8 Dalam Seminggu Terakhir, Apakah
+                  <span class="nama-placeholder">NAMA</span> menjalankan usaha,
+                  bertani atau melakukan kegiatan lainnya untuk memperoleh
+                  keuntungan/pendapatan yang dilakukan paling sedikit satu
+                  jam?</label
+                >
+              </div>
+              <div class="form-options">
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="menjalankan_usaha_ya"
+                      name="menjalankan_usaha"
+                      value="Ya"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                    />
+                    <label
+                      for="menjalankan_usaha_ya"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Ya</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="menjalankan_usaha_tidak"
+                      name="menjalankan_usaha"
+                      value="Tidak"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                    />
+                    <label
+                      for="menjalankan_usaha_tidak"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Tidak</label
+                    >
+                  </div>
+                </div>
+                <p
+                  id="menjalankan_usaha_error"
+                  class="text-red-500 text-xs mt-1 hidden"
+                >
+                  Wajib dipilih
+                </p>
+              </div>
+            </div>
+
+            <!-- 5.9 Membantu Kegiatan Usaha -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-section">
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >5.9 Dalam Seminggu Terakhir, Apakah
+                  <span class="nama-placeholder">NAMA</span> membantu kegiatan
+                  usaha atau pekerjaan keluarga/kerabat lainnya yang dilakukan
+                  paling sedikit satu jam?</label
+                >
+              </div>
+              <div class="form-options">
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="membantu_usaha_ya"
+                      name="membantu_usaha"
+                      value="Ya"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                    />
+                    <label
+                      for="membantu_usaha_ya"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Ya</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="membantu_usaha_tidak"
+                      name="membantu_usaha"
+                      value="Tidak"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 work-status-radio"
+                    />
+                    <label
+                      for="membantu_usaha_tidak"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Tidak</label
+                    >
+                  </div>
+                </div>
+                <p
+                  id="membantu_usaha_error"
+                  class="text-red-500 text-xs mt-1 hidden"
+                >
+                  Wajib dipilih
+                </p>
+              </div>
+            </div>
+
+            <!-- 5.10 Memiliki Pekerjaan Tetapi Sedang Tidak Bekerja (hanya muncul jika 5.7, 5.8, 5.9 semua "Tidak") -->
+            <div
+              id="pertanyaan_5_10"
+              class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden"
+            >
+              <div class="form-section">
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >5.10 Apakah
+                  <span class="nama-placeholder">NAMA</span> sebenarnya memiliki
+                  pekerjaan/kegiatan usaha, tetapi seminggu terakhir sedang
+                  tidak bekerja/menjalankan usaha tersebut?</label
+                >
+              </div>
+              <div class="form-options">
+                <div class="space-y-2">
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="memiliki_pekerjaan_ya"
+                      name="memiliki_pekerjaan"
+                      value="Ya"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <label
+                      for="memiliki_pekerjaan_ya"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Ya</label
+                    >
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      type="radio"
+                      id="memiliki_pekerjaan_tidak"
+                      name="memiliki_pekerjaan"
+                      value="Tidak"
+                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <label
+                      for="memiliki_pekerjaan_tidak"
+                      class="ml-2 block text-sm text-gray-700"
+                      >Tidak</label
+                    >
+                  </div>
+                </div>
+                <p
+                  id="memiliki_pekerjaan_error"
+                  class="text-red-500 text-xs mt-1 hidden"
+                >
+                  Wajib dipilih
+                </p>
+              </div>
+            </div>
+
             <div class="pt-4 space-y-3">
               <button
                 type="submit"
