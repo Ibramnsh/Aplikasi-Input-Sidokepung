@@ -1,42 +1,15 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("dataForm");
   const successAlert = document.getElementById("successAlert");
   const errorAlert = document.getElementById("errorAlert");
-  const errorMessage = document.getElementById("errorMessage");
   const successMessage = document.getElementById("successMessage");
+  const errorMessage = document.getElementById("errorMessage");
   const closeAlert = document.getElementById("closeAlert");
   const closeErrorAlert = document.getElementById("closeErrorAlert");
   const remainingElement = document.getElementById("remaining");
   const pertanyaan510 = document.getElementById("pertanyaan_5_10");
   const namaInput = document.getElementById("nama");
   const namaPlaceholders = document.querySelectorAll(".nama-placeholder");
-
-  // Highlight radio items when selected
-  const radioItems = document.querySelectorAll(".radio-item");
-  radioItems.forEach((item) => {
-    const radio = item.querySelector('input[type="radio"]');
-    if (radio) {
-      radio.addEventListener("change", function () {
-        // Remove highlight from all items in the same group
-        const name = this.name;
-        document.querySelectorAll(`input[name="${name}"]`).forEach((r) => {
-          const radioItem = r.closest(".radio-item");
-          if (radioItem) {
-            radioItem.classList.remove(
-              "bg-primary-50",
-              "border",
-              "border-primary-200"
-            );
-          }
-        });
-
-        // Add highlight to selected item
-        if (this.checked) {
-          item.classList.add("bg-primary-50", "border", "border-primary-200");
-        }
-      });
-    }
-  });
 
   // Update nama placeholder saat nama diinput
   namaInput.addEventListener("input", function () {
@@ -47,21 +20,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Logika untuk menampilkan pertanyaan 5.10 jika semua jawaban 5.7, 5.8, 5.9 adalah "Tidak"
-  const workStatusRadios = document.querySelectorAll(".work-status-radio");
-  workStatusRadios.forEach((radio) => {
-    radio.addEventListener("change", checkWorkStatus);
+  const workStatusSelects = document.querySelectorAll(".work-status-select");
+  workStatusSelects.forEach((select) => {
+    select.addEventListener("change", checkWorkStatus);
   });
 
   function checkWorkStatus() {
-    const bekerjaUpah = document.querySelector(
-      'input[name="bekerja_upah"]:checked'
-    )?.value;
-    const menjalankanUsaha = document.querySelector(
-      'input[name="menjalankan_usaha"]:checked'
-    )?.value;
-    const membantuUsaha = document.querySelector(
-      'input[name="membantu_usaha"]:checked'
-    )?.value;
+    const bekerjaUpah = document.getElementById("bekerja_upah").value;
+    const menjalankanUsaha = document.getElementById("menjalankan_usaha").value;
+    const membantuUsaha = document.getElementById("membantu_usaha").value;
 
     // Jika semua pertanyaan sudah dijawab
     if (bekerjaUpah && menjalankanUsaha && membantuUsaha) {
@@ -75,23 +42,40 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         pertanyaan510.classList.add("hidden");
         // Reset jawaban pertanyaan 5.10
-        const memilikiPekerjaanRadios = document.querySelectorAll(
-          'input[name="memiliki_pekerjaan"]'
-        );
-        memilikiPekerjaanRadios.forEach((radio) => {
-          radio.checked = false;
-        });
+        document.getElementById("memiliki_pekerjaan").selectedIndex = 0;
       }
     }
   }
 
+  // Highlight radio items when selected
+  const radioItems = document.querySelectorAll(".radio-item");
+  radioItems.forEach((item) => {
+    const radio = item.querySelector('input[type="radio"]');
+    radio.addEventListener("change", function () {
+      // Remove highlight from all items in the same group
+      const name = this.name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach((r) => {
+        r.closest(".radio-item").classList.remove(
+          "bg-primary-50",
+          "border",
+          "border-primary-200"
+        );
+      });
+
+      // Add highlight to selected item
+      if (this.checked) {
+        item.classList.add("bg-primary-50", "border", "border-primary-200");
+      }
+    });
+  });
+
   // Close success alert
-  closeAlert.addEventListener("click", function () {
+  closeAlert.addEventListener("click", () => {
     successAlert.classList.add("hidden");
   });
 
   // Close error alert
-  closeErrorAlert.addEventListener("click", function () {
+  closeErrorAlert.addEventListener("click", () => {
     errorAlert.classList.add("hidden");
   });
 
@@ -104,9 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("umur_error").classList.add("hidden");
   });
 
-  // Radio button event listeners to hide error messages when selecting
-  document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-    radio.addEventListener("change", function () {
+  // Select event listeners to hide error messages when selecting
+  document.querySelectorAll("select").forEach((select) => {
+    select.addEventListener("change", function () {
       const errorId = `${this.name}_error`;
       const errorElement = document.getElementById(errorId);
       if (errorElement) {
@@ -115,7 +99,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  form.addEventListener("submit", function (e) {
+  // Add focus effect to select elements
+  document.querySelectorAll(".select-input").forEach((select) => {
+    select.addEventListener("focus", () => {
+      select.parentElement.classList.add("ring-2", "ring-primary-300");
+    });
+
+    select.addEventListener("blur", () => {
+      select.parentElement.classList.remove("ring-2", "ring-primary-300");
+    });
+  });
+
+  // Form submission
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     // Reset error messages
@@ -126,30 +122,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get form values
     const nama = document.getElementById("nama").value.trim();
     const umur = document.getElementById("umur").value.trim();
-    const hubungan = document.querySelector(
-      'input[name="hubungan"]:checked'
-    )?.value;
-    const jenisKelamin = document.querySelector(
-      'input[name="jenis_kelamin"]:checked'
-    )?.value;
-    const statusPerkawinan = document.querySelector(
-      'input[name="status_perkawinan"]:checked'
-    )?.value;
-    const pendidikan = document.querySelector(
-      'input[name="pendidikan"]:checked'
-    )?.value;
-    const kegiatan = document.querySelector(
-      'input[name="kegiatan"]:checked'
-    )?.value;
-    const bekerjaUpah = document.querySelector(
-      'input[name="bekerja_upah"]:checked'
-    )?.value;
-    const menjalankanUsaha = document.querySelector(
-      'input[name="menjalankan_usaha"]:checked'
-    )?.value;
-    const membantuUsaha = document.querySelector(
-      'input[name="membantu_usaha"]:checked'
-    )?.value;
+    const hubungan = document.getElementById("hubungan").value;
+    const jenisKelamin = document.getElementById("jenis_kelamin").value;
+    const statusPerkawinan = document.getElementById("status_perkawinan").value;
+    const pendidikan = document.getElementById("pendidikan").value;
+    const kegiatan = document.getElementById("kegiatan").value;
+    const bekerjaUpah = document.getElementById("bekerja_upah").value;
+    const menjalankanUsaha = document.getElementById("menjalankan_usaha").value;
+    const membantuUsaha = document.getElementById("membantu_usaha").value;
 
     // Validate form
     let isValid = true;
@@ -208,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         input.classList.remove("border-red-500");
       }, 2000);
-    } else if (parseInt(umur) < 15) {
+    } else if (Number.parseInt(umur) < 15) {
       document.getElementById("umur_error").classList.remove("hidden");
       document.getElementById("umur_error").textContent =
         "Umur minimal 15 tahun";
@@ -241,11 +221,21 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!hubungan) {
       document.getElementById("hubungan_error").classList.remove("hidden");
       isValid = false;
+      document.getElementById("hubungan").classList.add("border-red-500");
+      setTimeout(() => {
+        document.getElementById("hubungan").classList.remove("border-red-500");
+      }, 2000);
     }
 
     if (!jenisKelamin) {
       document.getElementById("jenis_kelamin_error").classList.remove("hidden");
       isValid = false;
+      document.getElementById("jenis_kelamin").classList.add("border-red-500");
+      setTimeout(() => {
+        document
+          .getElementById("jenis_kelamin")
+          .classList.remove("border-red-500");
+      }, 2000);
     }
 
     if (!statusPerkawinan) {
@@ -253,21 +243,45 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("status_perkawinan_error")
         .classList.remove("hidden");
       isValid = false;
+      document
+        .getElementById("status_perkawinan")
+        .classList.add("border-red-500");
+      setTimeout(() => {
+        document
+          .getElementById("status_perkawinan")
+          .classList.remove("border-red-500");
+      }, 2000);
     }
 
     if (!pendidikan) {
       document.getElementById("pendidikan_error").classList.remove("hidden");
       isValid = false;
+      document.getElementById("pendidikan").classList.add("border-red-500");
+      setTimeout(() => {
+        document
+          .getElementById("pendidikan")
+          .classList.remove("border-red-500");
+      }, 2000);
     }
 
     if (!kegiatan) {
       document.getElementById("kegiatan_error").classList.remove("hidden");
       isValid = false;
+      document.getElementById("kegiatan").classList.add("border-red-500");
+      setTimeout(() => {
+        document.getElementById("kegiatan").classList.remove("border-red-500");
+      }, 2000);
     }
 
     if (!bekerjaUpah) {
       document.getElementById("bekerja_upah_error").classList.remove("hidden");
       isValid = false;
+      document.getElementById("bekerja_upah").classList.add("border-red-500");
+      setTimeout(() => {
+        document
+          .getElementById("bekerja_upah")
+          .classList.remove("border-red-500");
+      }, 2000);
     }
 
     if (!menjalankanUsaha) {
@@ -275,6 +289,14 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("menjalankan_usaha_error")
         .classList.remove("hidden");
       isValid = false;
+      document
+        .getElementById("menjalankan_usaha")
+        .classList.add("border-red-500");
+      setTimeout(() => {
+        document
+          .getElementById("menjalankan_usaha")
+          .classList.remove("border-red-500");
+      }, 2000);
     }
 
     if (!membantuUsaha) {
@@ -282,19 +304,31 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("membantu_usaha_error")
         .classList.remove("hidden");
       isValid = false;
+      document.getElementById("membantu_usaha").classList.add("border-red-500");
+      setTimeout(() => {
+        document
+          .getElementById("membantu_usaha")
+          .classList.remove("border-red-500");
+      }, 2000);
     }
 
     // Validasi pertanyaan 5.10 jika ditampilkan
     let memilikiPekerjaan = null;
     if (!pertanyaan510.classList.contains("hidden")) {
-      memilikiPekerjaan = document.querySelector(
-        'input[name="memiliki_pekerjaan"]:checked'
-      )?.value;
+      memilikiPekerjaan = document.getElementById("memiliki_pekerjaan").value;
       if (!memilikiPekerjaan) {
         document
           .getElementById("memiliki_pekerjaan_error")
           .classList.remove("hidden");
         isValid = false;
+        document
+          .getElementById("memiliki_pekerjaan")
+          .classList.add("border-red-500");
+        setTimeout(() => {
+          document
+            .getElementById("memiliki_pekerjaan")
+            .classList.remove("border-red-500");
+        }, 2000);
       }
     }
 
@@ -303,12 +337,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const submitButton = form.querySelector('button[type="submit"]');
       const originalButtonText = submitButton.innerHTML;
       submitButton.innerHTML = `
-                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Menyimpan...
-            `;
+        <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Menyimpan...
+      `;
       submitButton.disabled = true;
 
       // Create form data
@@ -348,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Show success message
             successMessage.textContent =
-              data.message || "Data berhasil disimpan";
+              data.message || "Data berhasil disimpan.";
             successAlert.classList.remove("hidden");
             errorAlert.classList.add("hidden");
 
@@ -357,15 +391,6 @@ document.addEventListener("DOMContentLoaded", function () {
             pertanyaan510.classList.add("hidden");
             namaPlaceholders.forEach((placeholder) => {
               placeholder.textContent = "NAMA";
-            });
-
-            // Reset radio item highlights
-            radioItems.forEach((item) => {
-              item.classList.remove(
-                "bg-primary-50",
-                "border",
-                "border-primary-200"
-              );
             });
 
             // Scroll to success message
