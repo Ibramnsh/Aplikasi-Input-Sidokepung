@@ -1,75 +1,75 @@
-$(document).ready(function() {
-    function resetDependentFields() {
-        $('#pemasaran_usaha_group').hide();
-        $('#penjualan_marketplace_group').hide();
-        $('#status_pekerjaan_diinginkan_group').hide();
-        $('#bidang_usaha_group').hide();
-        $('#lebih_dari_satu_pekerjaan_group').hide();
+function toggleFields(index) {
+    const statusPekerjaan = document.getElementById(`status_pekerjaan_${index}`).value;
+    const additionalFields = document.getElementById(`additionalFields_${index}`);
 
-        $('#pemasaran_usaha').val('');
-        $('#penjualan_marketplace').val('');
-        $('#status_pekerjaan_diinginkan').val('');
-        $('#bidang_usaha').val('');
-        $('#lebih_dari_satu_pekerjaan').val('');
+    if (statusPekerjaan === 'Berusaha Sendiri') {
+        additionalFields.style.display = 'block';
+    } else {
+        additionalFields.style.display = 'none';
     }
+}
 
-    $('#status_pekerjaan').change(function() {
-        resetDependentFields();
-        var status = $(this).val();
+function toggleBidangUsaha(index) {
+    const statusPekerjaanDiinginkan = document.getElementById(`status_pekerjaan_diinginkan_${index}`).value;
+    const bidangUsahaField = document.getElementById(`bidang_usaha_container_${index}`);
 
-        // Show pemasaran usaha, penjualan marketplace, status pekerjaan diinginkan if "Berusaha Sendiri"
-        if (status === 'Bekerja' || status === 'Berusaha Sendiri') {
-            $('#pemasaran_usaha_group').show();
-            $('#penjualan_marketplace_group').show();
-            $('#status_pekerjaan_diinginkan_group').show();
-        }
+    if (statusPekerjaanDiinginkan === 'Buruh/Karyawan/Pegawai') {
+        bidangUsahaField.style.display = 'none';
+    } else {
+        bidangUsahaField.style.display = 'block';
+    }
+}
 
-        // Show "Memiliki Lebih dari Satu Pekerjaan" for all statuses (always visible)
-        if (status === 'Bekerja' || status === 'Berusaha Sendiri' || status === 'Buruh/Karyawan/Pegawai' || status === 'Pekerja Keluarga') {
-            $('#lebih_dari_satu_pekerjaan_group').show();
-        }
-    });
+function addSideJobFields() {
+    const sideJobFieldsContainer = document.getElementById('sideJobFieldsContainer');
+    const sideJobCount = sideJobFieldsContainer.children.length;
 
-    $('#pemasaran_usaha').change(function() {
-        if ($(this).val() !== '') {
-            $('#penjualan_marketplace_group').show();
-        } else {
-            $('#penjualan_marketplace_group').hide();
-            $('#status_pekerjaan_diinginkan_group').hide();
-            $('#bidang_usaha_group').hide();
-            // 'Memiliki lebih dari satu pekerjaan' remains visible regardless
-        }
-    });
+    // Create two side job fields
+    for (let i = 0; i < 2; i++) {
+        const newSideJobFields = `
+            <div class="side-job-fields mt-4 p-4 border border-gray-300 rounded-lg">
+                <h2 class="text-lg font-semibold">Pekerjaan Sampingan ${sideJobCount + i + 1}</h2>
+                <div>
+                    <label for="status_pekerjaan_sampingan_${sideJobCount + i}" class="block text-sm font-medium text-gray-700">Status Pekerjaan</label>
+                    <select id="status_pekerjaan_sampingan_${sideJobCount + i}" name="status_pekerjaan_sampingan_${sideJobCount + i}" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="toggleFields('sampingan_${sideJobCount + i}')">
+                        <option value="Berusaha Sendiri">Berusaha Sendiri</option>
+                        <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
+                        <option value="Pekerja Keluarga">Pekerja Keluarga</option>
+                    </select>
+                </div>
 
-    $('#penjualan_marketplace').change(function() {
-        if ($(this).val() !== '') {
-            $('#status_pekerjaan_diinginkan_group').show();
-        } else {
-            $('#status_pekerjaan_diinginkan_group').hide();
-            $('#bidang_usaha_group').hide();
-            // 'Memiliki lebih dari satu pekerjaan' remains visible regardless
-        }
-    });
+                <div id="additionalFields_sampingan_${sideJobCount + i}" style="display: none;">
+                    <div>
+                        <label for="pemasaran_usaha_sampingan_${sideJobCount + i}" class="block text-sm font-medium text-gray-700">Pemasaran Usaha</label>
+                        <select id="pemasaran_usaha_sampingan_${sideJobCount + i}" name="pemasaran_usaha_sampingan_${sideJobCount + i}" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
+                            <option value="Online">Online</option>
+                            <option value="Offline">Offline</option>
+                        </select>
+                    </div>
 
-    $('#status_pekerjaan_diinginkan').change(function() {
-        var val = $(this).val();
-        if(val) {
-            $('#bidang_usaha_group').show();
-        } else {
-            $('#bidang_usaha_group').hide();
-        }
-    });
+                    <div>
+                        <label for="penjualan_marketplace_sampingan_${sideJobCount + i}" class="block text-sm font-medium text-gray-700">Penjualan Melalui Marketplace</label>
+                        <select id="penjualan_marketplace_sampingan_${sideJobCount + i}" name="penjualan_marketplace_sampingan_${sideJobCount + i}" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
+                            <option value="Ya">Ya</option>
+                            <option value="Tidak">Tidak</option>
+                        </select>
+                    </div>
 
-    $('#bidang_usaha').on('input', function() {
-        var val = $(this).val().trim();
-        if(val.length > 0) {
-            // Keep 'Memiliki lebih dari satu pekerjaan' visible
-        } else {
-            // Keep 'Memiliki lebih dari satu pekerjaan' visible regardless
-        }
-    });
+                    <div>
+                        <label for="status_pekerjaan_diinginkan_sampingan_${sideJobCount + i}" class="block text-sm font-medium text-gray-700">Status Pekerjaan yang Diinginkan</label>
+                        <select id="status_pekerjaan_diinginkan_sampingan_${sideJobCount + i}" name="status_pekerjaan_diinginkan_sampingan_${sideJobCount + i}" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="toggleBidangUsaha('sampingan_${sideJobCount + i}')">
+                            <option value="Berusaha Sendiri">Berusaha Sendiri</option>
+                            <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
+                        </select>
+                    </div>
 
-    // Trigger change at page load to reflect initial state if any
-    $('#status_pekerjaan').trigger('change');
-});
-
+                    <div id="bidang_usaha_container_sampingan_${sideJobCount + i}">
+                        <label for="bidang_usaha_sampingan_${sideJobCount + i}" class="block text-sm font-medium text-gray-700">Usaha di Bidang Apa yang Anda Minati</label>
+                        <input type="text" id="bidang_usaha_sampingan_${sideJobCount + i}" name="bidang_usaha_sampingan_${sideJobCount + i}" placeholder="Masukkan bidang usaha" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" />
+                    </div>
+                </div>
+            </div>
+        `;
+        sideJobFieldsContainer.insertAdjacentHTML('beforeend', newSideJobFields);
+    }
+}

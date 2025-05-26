@@ -3,55 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
     <title>Form Input Data Pekerjaan</title>
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                50: "#f0f9ff",
-                100: "#e0f2fe",
-                200: "#bae6fd",
-                300: "#7dd3fc",
-                400: "#38bdf8",
-                500: "#0ea5e9",
-                600: "#0284c7",
-                700: "#0369a1",
-                800: "#075985",
-                900: "#0c4a6e",
-                950: "#082f49",
-              },
-            },
-          },
-        },
-      };
-
-      function toggleFields() {
-        const statusPekerjaan = document.getElementById('status_pekerjaan').value;
-        const additionalFields = document.getElementById('additionalFields');
-
-        if (statusPekerjaan === 'Berusaha Sendiri') {
-          additionalFields.style.display = 'block';
-        } else {
-          additionalFields.style.display = 'none';
-        }
-      }
-
-      function toggleBidangUsaha() {
-        const statusPekerjaanDiinginkan = document.getElementById('status_pekerjaan_diinginkan').value;
-        const bidangUsahaField = document.getElementById('bidang_usaha_container');
-
-        if (statusPekerjaanDiinginkan === 'Buruh/Karyawan/Pegawai') {
-          bidangUsahaField.style.display = 'none';
-        } else {
-          bidangUsahaField.style.display = 'block';
-        }
-      }
-    </script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
 </head>
 <body class="bg-primary-50 min-h-screen py-8 px-4 flex items-center justify-center">
     <div class="container mx-auto max-w-md">
@@ -63,58 +22,63 @@
 
             <div class="p-6">
                 <form id="pekerjaanForm" method="POST" action="{{ url_for('submit_pekerjaan') }}" class="space-y-6">
-                    <!-- Status Pekerjaan -->
-                    <div>
-                        <label for="status_pekerjaan" class="block text-sm font-medium text-gray-700">Status Pekerjaan</label>
-                        <select id="status_pekerjaan" name="status_pekerjaan" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="toggleFields()">
-                            <option value="Berusaha Sendiri">Berusaha Sendiri</option>
-                            <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
-                            <option value="Pekerja Keluarga">Pekerja Keluarga</option>
-                        </select>
+                    <div id="jobFieldsContainer">
+                        <!-- Initial Job Fields -->
+                        <div class="job-fields mt-4 p-4 border border-gray-300 rounded-lg">
+                            <h2 class="text-lg font-semibold">Pekerjaan Utama</h2>
+                            <div>
+                                <label for="status_pekerjaan_0" class="block text-sm font-medium text-gray-700">Status Pekerjaan</label>
+                                <select id="status_pekerjaan_0" name="status_pekerjaan_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="toggleFields(0)">
+                                    <option value="Berusaha Sendiri">Berusaha Sendiri</option>
+                                    <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
+                                    <option value="Pekerja Keluarga">Pekerja Keluarga</option>
+                                </select>
+                            </div>
+
+                            <div id="additionalFields_0" style="display: none;">
+                                <div>
+                                    <label for="pemasaran_usaha_0" class="block text-sm font-medium text-gray-700">Pemasaran Usaha</label>
+                                    <select id="pemasaran_usaha_0" name="pemasaran_usaha_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
+                                        <option value="Online">Online</option>
+                                        <option value="Offline">Offline</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="penjualan_marketplace_0" class="block text-sm font-medium text-gray-700">Penjualan Melalui Marketplace</label>
+                                    <select id="penjualan_marketplace_0" name="penjualan_marketplace_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
+                                        <option value="Ya">Ya</option>
+                                        <option value="Tidak">Tidak</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="status_pekerjaan_diinginkan_0" class="block text-sm font-medium text-gray-700">Status Pekerjaan yang Diinginkan</label>
+                                    <select id="status_pekerjaan_diinginkan_0" name="status_pekerjaan_diinginkan_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="toggleBidangUsaha(0)">
+                                        <option value="Berusaha Sendiri">Berusaha Sendiri</option>
+                                        <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
+                                    </select>
+                                </div>
+
+                                <div id="bidang_usaha_container_0">
+                                    <label for="bidang_usaha_0" class="block text-sm font-medium text-gray-700">Usaha di Bidang Apa yang Anda Minati</label>
+                                    <input type="text" id="bidang_usaha_0" name="bidang_usaha_0" placeholder="Masukkan bidang usaha" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="additionalFields" style="display: none;">
-                        <!-- Pemasaran Usaha -->
-                        <div>
-                            <label for="pemasaran_usaha" class="block text-sm font-medium text-gray-700">Pemasaran Usaha</label>
-                            <select id="pemasaran_usaha" name="pemasaran_usaha" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
-                                <option value="Online">Online</option>
-                                <option value="Offline">Offline</option>
-                            </select>
-                        </div>
-
-                        <!-- Penjualan Marketplace -->
-                        <div>
-                            <label for="penjualan_marketplace" class="block text-sm font-medium text-gray-700">Penjualan Melalui Marketplace</label>
-                            <select id="penjualan_marketplace" name="penjualan_marketplace" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
-                                <option value="Ya">Ya</option>
-                                <option value="Tidak">Tidak</option>
-                            </select>
-                        </div>
-
-                        <!-- Status Pekerjaan Diinginkan -->
-                        <div>
-                            <label for="status_pekerjaan_diinginkan" class="block text-sm font-medium text-gray-700">Status Pekerjaan yang Diinginkan</label>
-                            <select id="status_pekerjaan_diinginkan" name="status_pekerjaan_diinginkan" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="toggleBidangUsaha()">
-                                <option value="Berusaha Sendiri">Berusaha Sendiri</option>
-                                <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
-                            </select>
-                        </div>
-
-                        <!-- Bidang Usaha -->
-                        <div id="bidang_usaha_container">
-                            <label for="bidang_usaha" class="block text-sm font-medium text-gray-700">Usaha di Bidang Apa yang Anda Minati</label>
-                            <input type="text" id="bidang_usaha" name="bidang_usaha" placeholder="Masukkan bidang usaha" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" />
-                        </div>
-                    </div>
-
-                    <!-- Lebih dari Satu Pekerjaan -->
+                    <!-- Apakah Memiliki Lebih dari Satu Pekerjaan -->
                     <div>
                         <label for="lebih_dari_satu_pekerjaan" class="block text-sm font-medium text-gray-700">Apakah Anda Memiliki Lebih dari Satu Pekerjaan</label>
-                        <select id="lebih_dari_satu_pekerjaan" name="lebih_dari_satu_pekerjaan" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required>
+                        <select id="lebih_dari_satu_pekerjaan" name="lebih_dari_satu_pekerjaan" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="if(this.value === 'Ya') { addSideJobFields(); }">
                             <option value="Ya">Ya</option>
                             <option value="Tidak">Tidak</option>
                         </select>
+                    </div>
+
+                    <div id="sideJobFieldsContainer" class="mt-4">
+                        <!-- Side Job Fields will be added here -->
                     </div>
 
                     <div class="pt-4 space-y-3">
