@@ -534,6 +534,7 @@
                   id="memiliki_pekerjaan"
                   name="memiliki_pekerjaan"
                   class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
+                  onchange="checkMemilikiPekerjaan()"
                 >
                   <option value="" disabled selected>Pilih jawaban</option>
                   <option value="Ya">Ya</option>
@@ -562,6 +563,72 @@
                 class="text-red-500 text-xs mt-1 hidden"
               >
                 Wajib dipilih
+              </p>
+            </div>
+
+            <!-- Status Pekerjaan yang Diinginkan (muncul jika 5.10 = "Tidak") -->
+            <div id="status_pekerjaan_container" class="bg-primary-50 p-4 rounded-lg border border-primary-200 hidden">
+              <label
+                for="status_pekerjaan_diinginkan"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >Status Pekerjaan yang Diinginkan oleh <span class="nama-placeholder">NAMA</span></label
+              >
+              <div class="relative">
+                <select
+                  id="status_pekerjaan_diinginkan"
+                  name="status_pekerjaan_diinginkan"
+                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white"
+                  onchange="toggleBidangUsaha()"
+                >
+                  <option value="" disabled selected>Pilih status pekerjaan yang diinginkan</option>
+                  <option value="Berusaha Sendiri">Berusaha Sendiri</option>
+                  <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
+                </select>
+                <div
+                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <p
+                id="status_pekerjaan_diinginkan_error"
+                class="text-red-500 text-xs mt-1 hidden"
+              >
+                Wajib dipilih
+              </p>
+            </div>
+
+            <!-- 6.4 Bidang Usaha yang Diminati (muncul jika status pekerjaan yang diinginkan = "Berusaha Sendiri") -->
+            <div
+              id="bidang_usaha_container"
+              class="bg-orange-50 p-4 rounded-lg border border-orange-200 hidden"
+            >
+              <label
+                for="bidang_usaha"
+                class="block text-sm font-medium text-gray-700 mb-2"
+                >6.4 Usaha di Bidang Apa yang Diminati oleh <span class="nama-placeholder">NAMA</span></label
+              >
+              <input
+                type="text"
+                id="bidang_usaha"
+                name="bidang_usaha"
+                placeholder="Masukkan bidang usaha yang diminati"
+                class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300"
+              />
+              <p id="bidang_usaha_error" class="text-red-500 text-xs mt-1 hidden">
+                Wajib diisi jika memilih "Berusaha Sendiri"
               </p>
             </div>
 
