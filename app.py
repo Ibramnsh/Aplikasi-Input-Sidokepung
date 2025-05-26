@@ -219,32 +219,127 @@ def submit_individu():
         keluarga_data['anggota_count'] = keluarga_data.get('anggota_count', 0) + 1
         session['keluarga_data'] = keluarga_data
         
-        # Store individual data temporarily in session
-        session['individu_data'] = {
-            'Nama Anggota': nama,
-            'Umur': umur_int,
-            'Hubungan dengan Kepala Keluarga': hubungan,
-            'Jenis Kelamin': jenis_kelamin,
-            'Status Perkawinan': status_perkawinan,
-            'Pendidikan Terakhir': pendidikan,
-            'Kegiatan Sehari-hari': kegiatan,
-            'Bekerja Untuk Upah': bekerja_upah,
-            'Menjalankan Usaha': menjalankan_usaha,
-            'Membantu Usaha Keluarga': membantu_usaha,
-            'Memiliki Pekerjaan Tapi Sedang Tidak Bekerja': memiliki_pekerjaan or '',
-            'Status Pekerjaan yang Diinginkan': status_pekerjaan_diinginkan or '',
-            'Bidang Usaha yang Diminati': bidang_usaha_diminati or '',
-            'Anggota Ke': keluarga_data['anggota_count'],
-            'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
+        # Check if this person needs to go to pekerjaan page
+        # Only if 5.10 = "Ya" (memiliki pekerjaan) or if any of 5.7, 5.8, 5.9 is "Ya"
+        needs_pekerjaan_page = (
+            bekerja_upah == 'Ya' or 
+            menjalankan_usaha == 'Ya' or 
+            membantu_usaha == 'Ya' or 
+            memiliki_pekerjaan == 'Ya'
+        )
         
-        # Always redirect to pekerjaan input after individu submission
-        return jsonify({
-            'success': True,
-            'message': 'Data individu berhasil disimpan di sesi. Silakan lanjutkan input pekerjaan.',
-            'redirect_to_pekerjaan': True,
-            'redirect_url': url_for('pekerjaan') 
-        })
+        if needs_pekerjaan_page:
+            # Store individual data temporarily in session for pekerjaan page
+            session['individu_data'] = {
+                'Nama Anggota': nama,
+                'Umur': umur_int,
+                'Hubungan dengan Kepala Keluarga': hubungan,
+                'Jenis Kelamin': jenis_kelamin,
+                'Status Perkawinan': status_perkawinan,
+                'Pendidikan Terakhir': pendidikan,
+                'Kegiatan Sehari-hari': kegiatan,
+                'Bekerja Untuk Upah': bekerja_upah,
+                'Menjalankan Usaha': menjalankan_usaha,
+                'Membantu Usaha Keluarga': membantu_usaha,
+                'Memiliki Pekerjaan Tapi Sedang Tidak Bekerja': memiliki_pekerjaan or '',
+                'Status Pekerjaan yang Diinginkan': status_pekerjaan_diinginkan or '',
+                'Bidang Usaha yang Diminati': bidang_usaha_diminati or '',
+                'Anggota Ke': keluarga_data['anggota_count'],
+                'Timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            
+            # Redirect to pekerjaan input
+            return jsonify({
+                'success': True,
+                'message': 'Data individu berhasil disimpan di sesi. Silakan lanjutkan input pekerjaan.',
+                'redirect_to_pekerjaan': True,
+                'redirect_url': url_for('pekerjaan') 
+            })
+        else:
+            # Save directly to Excel without going to pekerjaan page
+            row_data = {
+                'Timestamp': datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+                'ID Keluarga': keluarga_data['keluarga_id'],
+                'RT': keluarga_data['rt'],
+                'RW': keluarga_data['rw'],
+                'Dusun': keluarga_data['dusun'],
+                'Nama Kepala Keluarga': keluarga_data['nama_kepala'],
+                'Alamat': keluarga_data['alamat'],
+                'Jumlah Anggota Keluarga': keluarga_data['jumlah_anggota'],
+                'Jumlah Anggota Usia 15+': keluarga_data['jumlah_anggota_15plus'],
+                'Anggota Ke': keluarga_data['anggota_count'],
+                'Nama Anggota': nama,
+                'Umur': umur_int,
+                'Hubungan dengan Kepala Keluarga': hubungan,
+                'Jenis Kelamin': jenis_kelamin,
+                'Status Perkawinan': status_perkawinan,
+                'Pendidikan Terakhir': pendidikan,
+                'Kegiatan Sehari-hari': kegiatan,
+                'Bekerja Untuk Upah': bekerja_upah,
+                'Menjalankan Usaha': menjalankan_usaha,
+                'Membantu Usaha Keluarga': membantu_usaha,
+                'Memiliki Pekerjaan Tapi Sedang Tidak Bekerja': memiliki_pekerjaan or '',
+                'Status Pekerjaan yang Diinginkan': status_pekerjaan_diinginkan or '',
+                'Bidang Usaha yang Diminati': bidang_usaha_diminati or '',
+                # Empty pekerjaan fields since no job details needed
+                'Status Pekerjaan Utama': '',
+                'Pemasaran Usaha Utama': '',
+                'Penjualan Marketplace Utama': '',
+                'Status Pekerjaan Diinginkan Utama': '',
+                'Bidang Usaha Utama': '',
+                'Status Pekerjaan Sampingan 1': '',
+                'Pemasaran Usaha Sampingan 1': '',
+                'Penjualan Marketplace Sampingan 1': '',
+                'Status Pekerjaan Diinginkan Sampingan 1': '',
+                'Bidang Usaha Sampingan 1': '',
+                'Status Pekerjaan Sampingan 2': '',
+                'Pemasaran Usaha Sampingan 2': '',
+                'Penjualan Marketplace Sampingan 2': '',
+                'Status Pekerjaan Diinginkan Sampingan 2': '',
+                'Bidang Usaha Sampingan 2': '',
+                'Memiliki Lebih dari Satu Pekerjaan': '',
+            }
+            
+            # Save to Excel
+            try:
+                if os.path.exists(EXCEL_FILE):
+                    try:
+                        df = pd.read_excel(EXCEL_FILE)
+                        df = pd.concat([df, pd.DataFrame([row_data])], ignore_index=True)
+                    except PermissionError:
+                        return jsonify({
+                            'success': False,
+                            'message': 'File Excel sedang digunakan oleh program lain. Tutup file dan coba lagi.'
+                        }), 500
+                else:
+                    df = pd.DataFrame([row_data])
+
+                df.to_excel(EXCEL_FILE, index=False)
+
+            except Exception as e:
+                return jsonify({'success': False, 'message': f'Error saving to Excel: {str(e)}'}), 500
+
+            # Decrease remaining members count
+            keluarga_data['jumlah_anggota_15plus'] -= 1
+            session['keluarga_data'] = keluarga_data
+
+            # Check if there are more members to process
+            if keluarga_data['jumlah_anggota_15plus'] > 0:
+                return jsonify({
+                    'success': True,
+                    'message': 'Data berhasil disimpan. Lanjutkan ke anggota berikutnya.',
+                    'remaining': keluarga_data['jumlah_anggota_15plus'],
+                    'continue_next_member': True
+                })
+            else:
+                # All members processed, clear session
+                session.pop('keluarga_data', None)
+                return jsonify({
+                    'success': True,
+                    'message': 'Semua data berhasil disimpan. Terima kasih.',
+                    'complete': True,
+                    'redirect_url': url_for('index')
+                })
         
     except Exception as e:
         return jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500

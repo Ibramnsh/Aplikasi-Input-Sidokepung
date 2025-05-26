@@ -415,21 +415,32 @@ document.addEventListener("DOMContentLoaded", () => {
             successAlert.classList.remove("hidden")
             errorAlert.classList.add("hidden")
 
-            // Reset form
-            form.reset()
-            pertanyaan510.classList.add("hidden")
-            statusPekerjaanContainer.classList.add("hidden")
-            bidangUsahaContainer.classList.add("hidden")
-            namaPlaceholders.forEach((placeholder) => {
-              placeholder.textContent = "NAMA"
-            })
-
             // Scroll to success message
             successAlert.scrollIntoView({ behavior: "smooth" })
 
-            // Update remaining count
-            if (data.remaining) {
+            // Update remaining count if provided
+            if (data.remaining !== undefined) {
               remainingElement.textContent = data.remaining
+            }
+
+            // If continuing to next member, reset form after delay
+            if (data.continue_next_member) {
+              setTimeout(() => {
+                // Reset form
+                form.reset()
+                pertanyaan510.classList.add("hidden")
+                statusPekerjaanContainer.classList.add("hidden")
+                bidangUsahaContainer.classList.add("hidden")
+                namaPlaceholders.forEach((placeholder) => {
+                  placeholder.textContent = "NAMA"
+                })
+
+                // Hide success message
+                successAlert.classList.add("hidden")
+
+                // Focus on nama input for next member
+                document.getElementById("nama").focus()
+              }, 2000)
             }
 
             // If all data has been submitted, redirect to home page
@@ -438,11 +449,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = data.redirect_url
               }, 2000)
             }
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-              successAlert.classList.add("hidden")
-            }, 5000)
           } else {
             // Show error message
             errorMessage.textContent = data.message || "Terjadi kesalahan."
