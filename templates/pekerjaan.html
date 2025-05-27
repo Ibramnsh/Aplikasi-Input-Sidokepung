@@ -44,7 +44,7 @@
                             <div>
                                 <label for="status_pekerjaan_0" class="block text-sm font-medium text-gray-700">Status Pekerjaan *</label>
                                 <select id="status_pekerjaan_0" name="status_pekerjaan_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" required onchange="toggleFields(0)">
-                                    <option value="">Pilih Status Pekerjaan</option>
+                                    <option value="" disabled selected>Pilih Status Pekerjaan</option>
                                     <option value="Berusaha Sendiri">Berusaha Sendiri</option>
                                     <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
                                     <option value="Pekerja Keluarga">Pekerja Keluarga</option>
@@ -56,7 +56,7 @@
                                     <div>
                                         <label for="pemasaran_usaha_0" class="block text-sm font-medium text-gray-700">Pemasaran Usaha</label>
                                         <select id="pemasaran_usaha_0" name="pemasaran_usaha_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
-                                            <option value="">Pilih Pemasaran Usaha</option>
+                                            <option value="" disabled selected>Pilih Pemasaran Usaha</option>
                                             <option value="Online">Online</option>
                                             <option value="Offline">Offline</option>
                                         </select>
@@ -65,7 +65,7 @@
                                     <div>
                                         <label for="penjualan_marketplace_0" class="block text-sm font-medium text-gray-700">Penjualan Melalui Marketplace</label>
                                         <select id="penjualan_marketplace_0" name="penjualan_marketplace_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300">
-                                            <option value="">Pilih Jawaban</option>
+                                            <option value="" disabled selected>Pilih Jawaban</option>
                                             <option value="Ya">Ya</option>
                                             <option value="Tidak">Tidak</option>
                                         </select>
@@ -74,7 +74,7 @@
                                     <div>
                                         <label for="status_pekerjaan_diinginkan_0" class="block text-sm font-medium text-gray-700">Status Pekerjaan yang Diinginkan</label>
                                         <select id="status_pekerjaan_diinginkan_0" name="status_pekerjaan_diinginkan_0" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" onchange="toggleBidangUsaha(0)">
-                                            <option value="">Pilih Status Pekerjaan yang Diinginkan</option>
+                                            <option value="" disabled selected>Pilih Status Pekerjaan yang Diinginkan</option>
                                             <option value="Berusaha Sendiri">Berusaha Sendiri</option>
                                             <option value="Buruh/Karyawan/Pegawai">Buruh/Karyawan/Pegawai</option>
                                         </select>
@@ -98,6 +98,7 @@
                             Apakah Anda Memiliki Lebih dari Satu Pekerjaan?
                         </label>
                         <select id="lebih_dari_satu_pekerjaan" name="lebih_dari_satu_pekerjaan" class="form-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300" onchange="handleMultipleJobsChange()">
+                            <option value="" disabled selected>Pilih satu</option>
                             <option value="Tidak">Tidak</option>
                             <option value="Ya">Ya</option>
                         </select>

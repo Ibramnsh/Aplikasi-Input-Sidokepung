@@ -8,6 +8,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const downloadExcel = document.getElementById("downloadExcel");
   const downloadLink = document.getElementById("downloadLink");
 
+  // Preview image for each file input
+  const fileInputs = document.querySelectorAll('input[type="file"]');
+  fileInputs.forEach(input => {
+      input.addEventListener('change', function(e) {
+          const file = e.target.files[0];
+          if (file) {
+              const reader = new FileReader();
+              const previewDiv = document.getElementById(`preview_${input.name}`);
+              const previewImg = previewDiv.querySelector('img');
+              
+              reader.onload = function(e) {
+                  previewImg.src = e.target.result;
+                  previewDiv.classList.remove('hidden');
+              }
+              
+              reader.readAsDataURL(file);
+          }
+      });
+  });
+
   // Check if Excel file exists and update download button
   fetch("/check-file")
     .then((response) => response.json())
@@ -127,11 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isValid) {
       // Create form data
-      const formData = new FormData();
-
-      requiredFields.forEach((field) => {
-        formData.append(field, document.getElementById(field).value.trim());
-      });
+      const formData = new FormData(dataForm);
 
       // Show loading state
       const submitButton = dataForm.querySelector('button[type="submit"]');
@@ -176,6 +192,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Reset form
             dataForm.reset();
+
+            // Reset image previews
+            document.querySelectorAll('[id^="preview_ttd_"]').forEach(preview => {
+              preview.classList.add('hidden');
+            });
 
             // Scroll to success message
             successAlert.scrollIntoView({ behavior: "smooth" });

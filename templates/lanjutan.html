@@ -379,155 +379,17 @@
               </p>
             </div>
 
-            <!-- 5.7 Bekerja Untuk Memperoleh Bayaran/Upah/Gaji -->
-            <div class="bg-primary-50 p-4 rounded-lg border border-primary-200">
-              <label
-                for="bekerja_upah"
-                class="block text-sm font-medium text-gray-700 mb-2"
-                >5.7 Dalam Seminggu Terakhir, Apakah Bekerja Untuk Memperoleh
-                Bayaran/Upah/Gaji yang dilakukan paling sedikit satu jam?</label
-              >
-              <div class="relative">
-                <select
-                  id="bekerja_upah"
-                  name="bekerja_upah"
-                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white work-status-select"
-                >
-                  <option value="" disabled selected>Pilih jawaban</option>
-                  <option value="Ya">Ya</option>
-                  <option value="Tidak">Tidak</option>
-                </select>
-                <div
-                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
-                >
-                  <svg
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <p
-                id="bekerja_upah_error"
-                class="text-red-500 text-xs mt-1 hidden"
-              >
-                Wajib dipilih
-              </p>
-            </div>
-
-            <!-- 5.8 Menjalankan Usaha -->
-            <div class="bg-primary-50 p-4 rounded-lg border border-primary-200">
-              <label
-                for="menjalankan_usaha"
-                class="block text-sm font-medium text-gray-700 mb-2"
-                >5.8 Dalam Seminggu Terakhir, Apakah
-                <span class="nama-placeholder">NAMA</span> menjalankan usaha,
-                bertani atau melakukan kegiatan lainnya untuk memperoleh
-                keuntungan/pendapatan yang dilakukan paling sedikit satu
-                jam?</label
-              >
-              <div class="relative">
-                <select
-                  id="menjalankan_usaha"
-                  name="menjalankan_usaha"
-                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white work-status-select"
-                >
-                  <option value="" disabled selected>Pilih jawaban</option>
-                  <option value="Ya">Ya</option>
-                  <option value="Tidak">Tidak</option>
-                </select>
-                <div
-                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
-                >
-                  <svg
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <p
-                id="menjalankan_usaha_error"
-                class="text-red-500 text-xs mt-1 hidden"
-              >
-                Wajib dipilih
-              </p>
-            </div>
-
-            <!-- 5.9 Membantu Kegiatan Usaha -->
-            <div class="bg-primary-50 p-4 rounded-lg border border-primary-200">
-              <label
-                for="membantu_usaha"
-                class="block text-sm font-medium text-gray-700 mb-2"
-                >5.9 Dalam Seminggu Terakhir, Apakah
-                <span class="nama-placeholder">NAMA</span> membantu kegiatan
-                usaha atau pekerjaan keluarga/kerabat lainnya yang dilakukan
-                paling sedikit satu jam?</label
-              >
-              <div class="relative">
-                <select
-                  id="membantu_usaha"
-                  name="membantu_usaha"
-                  class="select-input w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-300 appearance-none bg-white work-status-select"
-                >
-                  <option value="" disabled selected>Pilih jawaban</option>
-                  <option value="Ya">Ya</option>
-                  <option value="Tidak">Tidak</option>
-                </select>
-                <div
-                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-primary-500"
-                >
-                  <svg
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <p
-                id="membantu_usaha_error"
-                class="text-red-500 text-xs mt-1 hidden"
-              >
-                Wajib dipilih
-              </p>
-            </div>
 
             <!-- 5.10 Memiliki Pekerjaan Tetapi Sedang Tidak Bekerja (hanya muncul jika 5.7, 5.8, 5.9 semua "Tidak") -->
             <div
               id="pertanyaan_5_10"
-              class="bg-primary-50 p-4 rounded-lg border border-primary-200 hidden"
+              class="bg-primary-50 p-4 rounded-lg border border-primary-200"
             >
               <label
                 for="memiliki_pekerjaan"
                 class="block text-sm font-medium text-gray-700 mb-2"
-                >5.10 Apakah
-                <span class="nama-placeholder">NAMA</span> sebenarnya memiliki
-                pekerjaan/kegiatan usaha, tetapi seminggu terakhir sedang tidak
-                bekerja/menjalankan usaha tersebut?</label
+                > Apakah
+                <span class="nama-placeholder">NAMA</span> Bekerja</label
               >
               <div class="relative">
                 <select
@@ -618,7 +480,7 @@
               <label
                 for="bidang_usaha"
                 class="block text-sm font-medium text-gray-700 mb-2"
-                >6.4 Usaha di Bidang Apa yang Diminati oleh <span class="nama-placeholder">NAMA</span></label
+                >Usaha di Bidang Apa yang Diminati oleh <span class="nama-placeholder">NAMA</span></label
               >
               <input
                 type="text"
